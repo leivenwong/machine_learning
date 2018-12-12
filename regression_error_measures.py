@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from learning_settings import Settings
 import learning_functions as fuc
 import data_analyze
+import linear_model
 
 import sys
 sys.path.append('D:\\python_project\\statistics')
@@ -19,8 +20,8 @@ target_raw = data_analyze.target
 target_raw = pd.DataFrame(target_raw)
 
 #here are some made-up numbers to start with
-target = target_raw['profit_per']
-prediction = target_raw['profit_per_incycle']
+target = list(linear_model.yTest)
+prediction = linear_model.testPredictions
 
 error = []
 for i in range(len(target)):

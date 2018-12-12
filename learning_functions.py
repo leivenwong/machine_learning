@@ -385,6 +385,16 @@ def m1_m2_direction(out):
     return direction
 
 
+def compute_roll(profit_ln, roll):
+    """move time windows"""
+    profit_ln_roll = [0] * len(profit_ln)
+    for n in range(roll):
+        profit_ln_roll[n] = 0
+    for i in range(roll, len(profit_ln)):
+        profit_ln_roll[i] = profit_ln[i - 1]
+    return profit_ln_roll
+
+
 def if_main(net_value):
     if __name__ == '__main__':
         return net_value

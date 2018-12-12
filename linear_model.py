@@ -19,20 +19,19 @@ ai_settings = Settings()
 
 #read raw data
 target_raw = data_analyze.target
-print(target_raw)
 
 #here are some made-up numbers to start with
-data = target_raw[['macd', 'rsi', 'ema']]
+data = target_raw[['rsi', 'profit_per_roll']]
 prediction = target_raw['profit_per']
 
 #arrange data into list for labels and list of lists for attributes
 xList = data
 labels = prediction
 
+#compute train and test data critical value
 cut = int(len(labels) / 3)
 
 #divide attribute matrix and label vector into training(2/3 of data) and test sets (1/3 of data)
-indices = range(len(xList))
 xListTest = xList[cut:]
 xListTrain = xList[:cut]
 labelsTest = labels[cut:]
@@ -42,22 +41,24 @@ xTrain = xListTrain
 xTest = xListTest
 yTrain = labelsTrain
 yTest = labelsTest
+print(yTest)
 
 #train linear regression model
 model = linear_model.LinearRegression(fit_intercept=True, normalize=False,
     copy_X=True, n_jobs=1)
-model.fit(xListTrain,labelsTrain)
+model.fit(xTrain, yTrain)
 
 
 #generate predictions on in-sample error
 trainingPredictions = model.predict(xListTrain)
 print("Some values predicted by model", trainingPredictions[0:5], trainingPredictions[-6:-1])
 
-print(model.get_params())
-print(model.score(xListTest, labelsTest))
-print(model.coef_)
-print(model.intercept_)
+print("model parameter: " + str(model.get_params()))
+print("model score: " + str(model.score(xListTest, labelsTest)))
+print("model coef: " + str(model.coef_))
+print("model intercept: " + str(model.intercept_))
 
 #generate predictions on out-of-sample data
 testPredictions = model.predict(xTest)
+print("testpredictions:")
 print(testPredictions)
