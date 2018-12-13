@@ -13,13 +13,6 @@ import learning_functions as fuc
 import data_analyze
 
 
-def xattrSelect(x, idxSet):
-    #takes X matrix as list of list and returns subset containing columns in idxSet
-    xOut = []
-    for row in x:
-        xOut.append([row[i] for i in idxSet])
-    return(xOut)
-
 #initiate settings
 ai_settings = Settings()
 

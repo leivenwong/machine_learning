@@ -15,7 +15,7 @@ class Settings():
             '@127.0.0.1/wang_2?charset=utf8'
 
         #set which table will used in mysql database
-        self.fetch_table = 'if_5m'
+        self.fetch_table = 'if_1d'
 
         #fetch date column in raw data
         self.fetch_close = "close_price"
