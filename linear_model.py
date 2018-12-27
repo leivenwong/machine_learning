@@ -21,7 +21,7 @@ ai_settings = Settings()
 target_raw = data_analyze.target
 
 #here are some made-up numbers to start with
-data = target_raw[['rsi', 'profit_per_roll']]
+data = target_raw[['rsi', 'profit_per_roll', 'macd']]
 prediction = target_raw['profit_per']
 
 #arrange data into list for labels and list of lists for attributes

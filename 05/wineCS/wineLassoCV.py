@@ -1,6 +1,6 @@
 __author__ = 'mike-bowles'
 
-import urllib2
+import urllib.request as urllib2
 import numpy
 from sklearn import datasets, linear_model
 from sklearn.linear_model import LassoCV
@@ -9,7 +9,9 @@ import matplotlib.pyplot as plot
 
 #read data into iterable
 target_url = "http://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv"
-data = urllib2.urlopen(target_url)
+data_raw = urllib2.urlopen(target_url)
+data = data_raw.read()
+print(data)
 
 xList = []
 labels = []
@@ -17,11 +19,11 @@ names = []
 firstLine = True
 for line in data:
     if firstLine:
-        names = line.strip().split(";")
+        names = line.strip().split(",".encode(encoding='utf-8'))
         firstLine = False
     else:
         #split on semi-colon
-        row = line.strip().split(";")
+        row = line.strip().split(",".encode(encoding='utf-8'))
         #put labels in separate array
         labels.append(float(row[-1]))
         #remove label from row

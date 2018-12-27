@@ -132,6 +132,7 @@ minMse = min(cvCurve)
 minPt = [i for i in range(len(cvCurve)) if cvCurve[i] == minMse ][0]
 print("Minimum Mean Square Error", minMse)
 print("Index of Minimum Mean Square Error", minPt)
+print("Best beta", betaMat[minPt])
 
 xaxis = range(len(cvCurve))
 plt.plot(xaxis, cvCurve)

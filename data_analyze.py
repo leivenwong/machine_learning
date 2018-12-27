@@ -23,6 +23,7 @@ data_high = target.loc[0:, ai_settings.fetch_high]
 data_low = target.loc[0:, ai_settings.fetch_low]
 data_close = target.loc[0:, ai_settings.fetch_close]
 data_date = target.loc[0:, ai_settings.fetch_date]
+data_vol = target.loc[0:, ai_settings.fetch_vol]
 #data_date = pd.to_datetime(data_date)
 #data_date = fuc.to_date(data_date)
 
@@ -38,6 +39,8 @@ open_jump = fuc.open_jump(data_close,data_open)
 profit_per_incycle = fuc.profit_per_incycle(data_close, data_open)
 profit_per = fuc.profit_per(data_close)
 profit_per_roll = fuc.compute_roll(profit_per, roll)
+close_square = np.array(data_close) ** 2
+close_square_roll = fuc.compute_roll(close_square, roll)
 
 target['macd'] = macd
 target['rsi'] = rsi
@@ -46,9 +49,14 @@ target['open_jump'] = open_jump
 target['profit_per_roll'] = profit_per_roll
 target['profit_per_incycle'] = profit_per_incycle
 target['profit_per'] = profit_per
+target['vol'] = data_vol
+target['close_square_roll'] = close_square_roll
 
-if __name__ == '_main__':
+print("data vol: " + str(len(data_date)))
+
+if __name__ == '__main__':
     corMat = target.corr()
     print(corMat)
+    print(target['close_square_roll'])
     plt.pcolor(corMat)
     plt.show()
