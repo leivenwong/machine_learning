@@ -14,21 +14,25 @@ from statistics_functions import compute_r
 ai_settings = Settings()
 
 #read raw data
-target = fuc.read_sql_wang2(ai_settings)
-target = pd.DataFrame(target)
+target_raw = fuc.read_sql_wang2(ai_settings)
+target_raw = pd.DataFrame(target_raw)
 
 #select close price for compute
-data_open = target.loc[0:, ai_settings.fetch_open]
-data_high = target.loc[0:, ai_settings.fetch_high]
-data_low = target.loc[0:, ai_settings.fetch_low]
-data_close = target.loc[0:, ai_settings.fetch_close]
-data_date = target.loc[0:, ai_settings.fetch_date]
-data_vol = target.loc[0:, ai_settings.fetch_vol]
+data_open = target_raw.loc[0:, ai_settings.fetch_open]
+data_high = target_raw.loc[0:, ai_settings.fetch_high]
+data_low = target_raw.loc[0:, ai_settings.fetch_low]
+data_close = target_raw.loc[0:, ai_settings.fetch_close]
+data_date = target_raw.loc[0:, ai_settings.fetch_date]
+data_vol = target_raw.loc[0:, ai_settings.fetch_vol]
 #data_date = pd.to_datetime(data_date)
 #data_date = fuc.to_date(data_date)
 
 #add index for analyze
 roll = 1
+data_close_roll = fuc.compute_roll(data_close,roll)
+data_open_roll = fuc.compute_roll(data_open,roll)
+data_high_roll = fuc.compute_roll(data_high,roll)
+data_low_roll = fuc.compute_roll(data_low,roll)
 macd = fuc.compute_macd(data_close, 12, 26, 9)
 macd = fuc.compute_roll(macd, roll)
 rsi = fuc.compute_rsi(data_close,9)
@@ -42,17 +46,22 @@ profit_per_roll = fuc.compute_roll(profit_per, roll)
 close_square = np.array(data_close) ** 2
 close_square_roll = fuc.compute_roll(close_square, roll)
 
+target = pd.DataFrame()
+target['open_price'] = data_open_roll
+target['high_price'] = data_high_roll
+target['low_price'] = data_low_roll
+target['close_price'] = data_close_roll
 target['macd'] = macd
 target['rsi'] = rsi
 target['ema'] = ema
 target['open_jump'] = open_jump
 target['profit_per_roll'] = profit_per_roll
 target['profit_per_incycle'] = profit_per_incycle
-target['profit_per'] = profit_per
 target['vol'] = data_vol
 target['close_square_roll'] = close_square_roll
+target['profit_per'] = profit_per
 
-print("data vol: " + str(len(data_date)))
+print("data len: " + str(len(data_date)))
 
 if __name__ == '__main__':
     corMat = target.corr()
