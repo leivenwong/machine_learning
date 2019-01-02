@@ -64,7 +64,9 @@ predictions = GBMModel.staged_predict(xTest)
 for p in predictions:
     msError.append(mean_squared_error(yTest, p))
 
-joblib.dump(GBMModel,'GBM.pkl')
+joblib.dump(GBMModel, 'D:\\python_project\\machine_learning\\'
+                      'trained_models\\' + ai_settings.fetch_table +
+                        'GBM.pkl')
 print("MSE")
 print(min(msError))
 print(msError.index(min(msError)))

@@ -47,6 +47,7 @@ close_square = np.array(data_close) ** 2
 close_square_roll = fuc.compute_roll(close_square, roll)
 
 target = pd.DataFrame()
+target['utc_string'] = target_raw['utc_string']
 target['open_price'] = data_open_roll
 target['high_price'] = data_high_roll
 target['low_price'] = data_low_roll

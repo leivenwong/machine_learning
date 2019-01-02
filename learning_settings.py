@@ -15,7 +15,7 @@ class Settings():
             '@127.0.0.1/python_merge?charset=utf8'
 
         #set which table will used in mysql database
-        self.fetch_table = 'if_1d'
+        self.fetch_table = 'ru_5m'
 
         # fetch close price in raw data
         self.fetch_close = "close_price"
