@@ -1,6 +1,7 @@
 import pypandoc
 import os
-
+#os.environ.setdefault('PYPANDOC_PANDOC', 'D:\Software\pandoc-2.5-windows-x86_64\pandoc')
+#os.environ.setdefault('PYPANDOC_PANDOC', 'C:\Program Files\MiKTeX 2.9\miktex\bin\x64')
 
 def main():
     marks_down_links = {
@@ -19,7 +20,7 @@ def main():
         pypandoc.convert_file(
             value,
             'pdf',
-            extra_args=['--pdf-engine=xelatex', '-V', 'geometry:margin=1.5cm'],
+            extra_args=['--pdf-engine=pdflatex', '-V', 'geometry:margin=1.5cm'],
             outputfile=(key + ".pdf")
         )
         print("Converting", key, "completed")

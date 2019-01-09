@@ -46,7 +46,7 @@ backtesting_data['low_price'] = xTest[0:][2]
 backtesting_data['close_price'] = xTest[0:][3]
 
 # Train gradient boosting model to minimize mean squared error
-nEst = 1000
+nEst = 60
 depth = 5
 learnRate = 0.01
 subSamp = 0.5
@@ -72,8 +72,7 @@ print(min(msError))
 print(msError.index(min(msError)))
 
 d_prediction = GBMModel.predict(xTest)
-print("prediction")
-print(d_prediction)
+
 print("prediction length:" +
       str(len(d_prediction)))
 
